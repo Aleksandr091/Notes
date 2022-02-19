@@ -91,7 +91,7 @@ public class NameNoteFragment extends Fragment {
     }
     public void showPort(){
         DescriptionFragment descriptionFragment = DescriptionFragment.newInstance(currentNote);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,descriptionFragment).addToBackStack("").commit();
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.name_notes,descriptionFragment).addToBackStack("").commit();
     }
     public void setData (TextView view){
         Long date = System.currentTimeMillis();
