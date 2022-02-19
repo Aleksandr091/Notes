@@ -3,6 +3,7 @@ package ru.chistov.notes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onResume();
         Fragment backStackFragment = (Fragment)getSupportFragmentManager().findFragmentById(R.id.name_notes);
         if(backStackFragment!=null&&backStackFragment instanceof DescriptionFragment){
-            onBackPressed();
+            getSupportFragmentManager().popBackStack();
         }
     }
 }

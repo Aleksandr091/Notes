@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import java.util.List;
 
 
 public class DescriptionFragment extends Fragment {
@@ -39,6 +43,19 @@ public class DescriptionFragment extends Fragment {
         EditText ed = view.findViewById(R.id.ed_txt_dn);
         String[] description = getResources().getStringArray(R.array.description);
         ed.setText(description[note.getIndex()]);
+
+        view.findViewById(R.id.btn_rem).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Fragment> list= requireActivity().getSupportFragmentManager().getFragments();
+                for (Fragment fr:list) {
+                    if(fr instanceof DescriptionFragment){
+                        requireActivity().getSupportFragmentManager().beginTransaction().remove(fr).commit();
+                    }
+                }
+            }
+        });
+
 
     }
 }
