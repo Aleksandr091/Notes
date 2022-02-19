@@ -10,16 +10,17 @@
     android:orientation="vertical"
     tools:context=".DescriptionFragment">
 
-    <FrameLayout
-        android:id="@+id/container_child"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_rem"
+    <EditText
+        android:id="@+id/ed_txt_dn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_btn_remove"/>
+        android:textSize="30sp"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_btn_back"/>
+
 
 </LinearLayout>
