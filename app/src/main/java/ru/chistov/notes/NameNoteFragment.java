@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -81,6 +83,33 @@ public class NameNoteFragment extends Fragment {
                     }else {
                         showPort();
                     }
+                }
+            });
+            tv.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    PopupMenu popupMenu = new PopupMenu(requireContext(),view);
+                    requireActivity().getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            switch (menuItem.getItemId()){
+                                case (R.id.action_popup_open):{
+                                    currentNote = new Note(finalI);
+                                    if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
+                                        showLand();
+                                    }else {
+                                        showPort();
+                                    }
+                                    return true;
+                                }
+
+                            }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
+                    return false;
                 }
             });
 

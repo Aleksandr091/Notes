@@ -22,7 +22,12 @@ public class MainActivity extends AppCompatActivity  {
             getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,nameNotesFragment).commit();
 
         }
-        setSupportActionBar(findViewById(R.id.toolbar));
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
+            setSupportActionBar(findViewById(R.id.toolbar_land));
+        }else {
+            setSupportActionBar(findViewById(R.id.toolbar));
+        }
+
     }
 
     @Override
