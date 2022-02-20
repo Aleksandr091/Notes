@@ -4,4 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_btn_remove">Remove</string>
     <string name="txt_btn_back">back</string>
+    <string name="about">about</string>
+    <string name="exit">exit</string>
+    <string name="about_developers">about_developers</string>
+    <string name="toast">toast</string>
 </resources>

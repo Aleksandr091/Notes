@@ -1,11 +1,14 @@
 package ru.chistov.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -19,6 +22,29 @@ public class MainActivity extends AppCompatActivity  {
             getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,nameNotesFragment).commit();
 
         }
+        setSupportActionBar(findViewById(R.id.toolbar));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case (R.id.action_about):{
+                getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,new AboutFragment()).addToBackStack("").commit();
+
+                return true;
+            }
+            case (R.id.action_exit):{
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

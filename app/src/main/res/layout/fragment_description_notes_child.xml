@@ -10,17 +10,17 @@
     android:orientation="vertical"
     tools:context=".DescriptionFragment">
 
-    <EditText
+    <TextView
         android:id="@+id/ed_txt_dn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        />
+        android:textSize="@dimen/setTxtSize" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_btn_back"/>
+        android:text="@string/txt_btn_back" />
 
 
 </LinearLayout>

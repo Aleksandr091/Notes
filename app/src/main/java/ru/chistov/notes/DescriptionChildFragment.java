@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +39,7 @@ public class DescriptionChildFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         note = getArguments().getParcelable(ARG_NOTE);
-        EditText ed = view.findViewById(R.id.ed_txt_dn);
+        TextView ed = view.findViewById(R.id.ed_txt_dn);
         String[] description = getResources().getStringArray(R.array.description);
         ed.setText(description[note.getIndex()]);
 

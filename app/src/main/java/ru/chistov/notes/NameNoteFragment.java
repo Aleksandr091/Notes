@@ -23,6 +23,7 @@ public class NameNoteFragment extends Fragment {
     public static final String CURRENT_NOTE = "CURRENT_NOTE";
 
     private Note currentNote;
+
     public static NameNoteFragment newInstance() {
         NameNoteFragment fragment = new NameNoteFragment();
         return fragment;

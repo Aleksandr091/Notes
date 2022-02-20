@@ -13,13 +13,13 @@
     <FrameLayout
         android:id="@+id/container_child"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_rem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_btn_remove"/>
+        android:text="@string/text_btn_remove" />
 
 </LinearLayout>
