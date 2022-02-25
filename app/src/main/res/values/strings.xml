@@ -9,4 +9,5 @@
     <string name="about_developers">about_developers</string>
     <string name="toast">toast</string>
     <string name="open">open</string>
+    <string name="txt_btn_add_note">добавить заметку</string>
 </resources>

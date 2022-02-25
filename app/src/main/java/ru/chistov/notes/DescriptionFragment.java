@@ -59,7 +59,9 @@ public class DescriptionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
+        if(savedInstanceState==null){
+            setHasOptionsMenu(true);
+        }
         note = getArguments().getParcelable(ARG_NOTE);
 
         getChildFragmentManager().beginTransaction().replace(R.id.container_child,DescriptionChildFragment.newInstance(note)).addToBackStack("").commit();

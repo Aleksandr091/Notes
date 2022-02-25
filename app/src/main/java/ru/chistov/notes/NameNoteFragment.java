@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 
@@ -58,9 +60,10 @@ public class NameNoteFragment extends Fragment {
         }
         initView(view);
 
+
     }
     public void initView(View view){
-
+        view.findViewById(R.id.addNote).setOnClickListener(view1 -> Snackbar.make(view,"Добавлена заметка",Snackbar.LENGTH_LONG).show());
         String[] notes = getResources().getStringArray(R.array.notes);
         for (int i=0;i<notes.length;i++){
             String nameNotes = notes[i];

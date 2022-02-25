@@ -1,14 +1,17 @@
 package ru.chistov.notes;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -45,7 +48,11 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
             case (R.id.action_exit):{
-                finish();
+                new AlertDialog.Builder(this)
+                        .setTitle("Закрыть приложение")
+                        .setPositiveButton("да", (dialogInterface, i) -> finish())
+                        .setNegativeButton("нет",(dialogInterface, i) -> Toast.makeText(this, "приложение работает", Toast.LENGTH_SHORT).show())
+                        .show();
                 return true;
             }
         }
