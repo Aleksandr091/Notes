@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -22,11 +23,12 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 
 
-public class NameNoteFragment extends Fragment {
+public class NameNoteFragment extends Fragment implements OnItemClickListener {
 
     public static final String CURRENT_NOTE = "CURRENT_NOTE";
 
     private Note currentNote;
+    NotesAdapter notesAdapter;
 
     public static NameNoteFragment newInstance() {
         NameNoteFragment fragment = new NameNoteFragment();
@@ -50,6 +52,8 @@ public class NameNoteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initAdapter();
+        initRecycler(view);
         if(savedInstanceState!=null){
             currentNote=savedInstanceState.getParcelable(CURRENT_NOTE);
         }else {
@@ -64,17 +68,21 @@ public class NameNoteFragment extends Fragment {
     }
     public void initView(View view){
         view.findViewById(R.id.addNote).setOnClickListener(view1 -> Snackbar.make(view,"Добавлена заметка",Snackbar.LENGTH_LONG).show());
-        String[] notes = getResources().getStringArray(R.array.notes);
-        for (int i=0;i<notes.length;i++){
+
+        /*for (int i=0;i<notes.length;i++){
             String nameNotes = notes[i];
             TextView tv = new TextView(getContext());
             tv.setTextSize(30f);
             tv.setText(nameNotes);
             ((LinearLayout)view).addView(tv);
+
+
+
             TextView tvd = new TextView(getContext());
-            tv.setTextSize(20f);
+            tvd.setTextSize(20f);
             setData(tvd); // дата меняетя при каждой отрисовки фрагмента,позже попробую сохранение в sharedPreferences
             ((LinearLayout)view).addView(tvd);
+
             final int finalI = i;
 
             tv.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +96,8 @@ public class NameNoteFragment extends Fragment {
                     }
                 }
             });
+
+
             tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -116,7 +126,21 @@ public class NameNoteFragment extends Fragment {
                 }
             });
 
-        }
+        }*/
+    }
+    public void initRecycler(View view){
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(notesAdapter);
+        recyclerView.setHasFixedSize(true);
+    }
+    public void initAdapter(){
+        notesAdapter = new NotesAdapter();
+        notesAdapter.setData(getData());
+        notesAdapter.setOnItemClickListener(this);
+    }
+    public String[] getData(){
+        String[] data = getResources().getStringArray(R.array.notes);
+        return data;
     }
     public void showLand(){
         DescriptionFragment descriptionFragment = DescriptionFragment.newInstance(currentNote);
@@ -132,8 +156,42 @@ public class NameNoteFragment extends Fragment {
 
         String dateString = sdf.format(date);
         view.setText(dateString);
+    }
 
+    @Override
+    public void OnItemClick(int position) {
+        currentNote = new Note(position);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            showLand();
+        } else {
+            showPort();
+        }
+    }
+    @Override
+    public void OnItemLongClick(int position,View view) {
+        PopupMenu popupMenu = new PopupMenu(requireContext(),view);
+        requireActivity().getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case (R.id.action_popup_open):{
+                        currentNote = new Note(position);
+                        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
+                            showLand();
+                        }else {
+                            showPort();
+                        }
+                        return true;
+                    }
 
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
 
     }
+
+
 }
