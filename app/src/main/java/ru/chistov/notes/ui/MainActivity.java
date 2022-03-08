@@ -1,17 +1,17 @@
-package ru.chistov.notes;
+package ru.chistov.notes.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import ru.chistov.notes.R;
 
 public class MainActivity extends AppCompatActivity  {
 

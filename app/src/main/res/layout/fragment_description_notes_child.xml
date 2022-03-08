@@ -8,7 +8,7 @@
     android:clickable="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".DescriptionFragment">
+    tools:context=".ui.DescriptionFragment">
 
     <TextView
         android:id="@+id/ed_txt_dn"

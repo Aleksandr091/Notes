@@ -8,7 +8,7 @@
     android:clickable="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".DescriptionFragment">
+    tools:context=".ui.DescriptionFragment">
 
     <FrameLayout
         android:id="@+id/container_child"

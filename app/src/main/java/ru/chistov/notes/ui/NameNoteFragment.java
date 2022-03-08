@@ -1,4 +1,4 @@
-package ru.chistov.notes;
+package ru.chistov.notes.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,19 +8,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+
+import ru.chistov.notes.R;
 
 
 public class NameNoteFragment extends Fragment implements OnItemClickListener {

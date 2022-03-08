@@ -1,4 +1,4 @@
-package ru.chistov.notes;
+package ru.chistov.notes.ui;
 
 import android.view.View;
 

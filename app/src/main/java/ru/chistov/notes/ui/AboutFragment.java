@@ -1,4 +1,4 @@
-package ru.chistov.notes;
+package ru.chistov.notes.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import ru.chistov.notes.R;
 
 public class AboutFragment extends Fragment {
     @Nullable
