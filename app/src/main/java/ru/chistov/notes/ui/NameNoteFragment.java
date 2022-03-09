@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.SimpleDateFormat;
 
 import ru.chistov.notes.R;
+import ru.chistov.notes.repository.LocalRepositoryImpl;
 
 
 public class NameNoteFragment extends Fragment implements OnItemClickListener {
@@ -134,7 +135,9 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
     }
     public void initAdapter(){
         notesAdapter = new NotesAdapter();
-        notesAdapter.setData(getData());
+        LocalRepositoryImpl localRepository =new LocalRepositoryImpl(requireContext().getResources());
+
+        notesAdapter.setData(localRepository.init());
         notesAdapter.setOnItemClickListener(this);
     }
     public String[] getData(){

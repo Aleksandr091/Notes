@@ -13,7 +13,7 @@ public class LocalRepositoryImpl implements CardSource{
     private List<CardData> dataSource;
     Resources resources;
 
-    LocalRepositoryImpl(Resources resources){
+    public LocalRepositoryImpl(Resources resources){
         dataSource = new ArrayList<CardData>();
         this.resources = resources;
 
