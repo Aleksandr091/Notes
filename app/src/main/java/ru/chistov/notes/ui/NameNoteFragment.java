@@ -178,12 +178,7 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case (R.id.action_popup_open):{
-                        currentNote = new Note(position);
-                        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
-                            showLand();
-                        }else {
-                            showPort();
-                        }
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,new ChangeCardViewItemFragment()).addToBackStack("").commit();
                         return true;
                     }
 

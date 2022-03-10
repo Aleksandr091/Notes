@@ -10,4 +10,5 @@
     <string name="toast">toast</string>
     <string name="open">open</string>
     <string name="txt_btn_add_note">добавить заметку</string>
+    <string name="txt_btn_change">Изменить заметку</string>
 </resources>

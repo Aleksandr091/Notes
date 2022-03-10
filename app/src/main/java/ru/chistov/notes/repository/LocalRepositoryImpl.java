@@ -8,13 +8,13 @@ import java.util.List;
 
 import ru.chistov.notes.R;
 
-public class LocalRepositoryImpl implements CardSource{
+public class LocalRepositoryImpl implements NoteSource {
 
-    private List<CardData> dataSource;
+    private List<NoteData> dataSource;
     Resources resources;
 
     public LocalRepositoryImpl(Resources resources){
-        dataSource = new ArrayList<CardData>();
+        dataSource = new ArrayList<NoteData>();
         this.resources = resources;
 
     }
@@ -25,7 +25,7 @@ public class LocalRepositoryImpl implements CardSource{
         TypedArray pictures = resources.obtainTypedArray(R.array.pictures);
 
         for (int i=0;i<titles.length;i++){
-            dataSource.add(new CardData(titles[i],description[i],pictures.getResourceId(i,0),false,creationDate[i]));
+            dataSource.add(new NoteData(titles[i],description[i],pictures.getResourceId(i,0),false,creationDate[i]));
         }
         return this;
     }
@@ -36,12 +36,12 @@ public class LocalRepositoryImpl implements CardSource{
     }
 
     @Override
-    public CardData getCardData(int position) {
+    public NoteData getCardData(int position) {
         return dataSource.get(position);
     }
 
     @Override
-    public List<CardData> getAllCardData() {
+    public List<NoteData> getAllCardData() {
         return dataSource;
     }
 }

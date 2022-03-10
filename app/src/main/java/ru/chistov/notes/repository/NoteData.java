@@ -1,13 +1,13 @@
 package ru.chistov.notes.repository;
 
-public class CardData {
+public class NoteData {
     private String title;
     private String description;
     private  int picture;
     private String creationDate;
     private boolean completed;
 
-    public CardData(String title, String description, int picture, boolean completed,String creationDate) {
+    public NoteData(String title, String description, int picture, boolean completed, String creationDate) {
         this.title = title;
         this.description = description;
         this.picture = picture;

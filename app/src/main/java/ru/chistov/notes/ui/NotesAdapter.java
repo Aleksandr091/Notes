@@ -11,12 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ru.chistov.notes.R;
-import ru.chistov.notes.repository.CardData;
-import ru.chistov.notes.repository.CardSource;
+import ru.chistov.notes.repository.NoteData;
+import ru.chistov.notes.repository.NoteSource;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 
-    private CardSource cardSource;
+    private NoteSource noteSource;
 
     OnItemClickListener onItemClickListener;
 
@@ -33,21 +33,21 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bindContentWithLayout(cardSource.getCardData(position));
+        holder.bindContentWithLayout(noteSource.getCardData(position));
     }
 
     @Override
     public int getItemCount() {
-        return cardSource.size();
+        return noteSource.size();
     }
-    NotesAdapter (CardSource cardSource) {
-        this.cardSource = cardSource;
+    NotesAdapter (NoteSource noteSource) {
+        this.noteSource = noteSource;
     }
     NotesAdapter () {
 
     }
-    public void setData(CardSource cardSource) {
-        this.cardSource = cardSource;
+    public void setData(NoteSource noteSource) {
+        this.noteSource = noteSource;
         notifyDataSetChanged();
     }
 
@@ -73,8 +73,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                         onItemClickListener.OnItemClick(getLayoutPosition());
                     }
                 }
-            });
-            textView.setOnLongClickListener(new View.OnLongClickListener() {
+            });*/
+            textViewTitle.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     if(onItemClickListener!=null){
@@ -82,9 +82,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                     }
                     return false;
                 }
-            });*/
+            });
         }
-        public void bindContentWithLayout(CardData content){
+        public void bindContentWithLayout(NoteData content){
             textViewTitle.setText(content.getTitle());
             textViewDescription.setText(content.getDescription());
             textViewCreationDate.setText(content.getCreationDate());
