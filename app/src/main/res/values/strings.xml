@@ -11,4 +11,9 @@
     <string name="open">open</string>
     <string name="txt_btn_add_note">добавить заметку</string>
     <string name="txt_btn_change">Изменить заметку</string>
+    <string name="title_action_add">add</string>
+    <string name="title_action_clear">clear</string>
+    <string name="action_update">изменить</string>
+    <string name="action_delete">удалить</string>
+    <string name="txtBtnSave">Сохранить</string>
 </resources>

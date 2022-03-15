@@ -9,20 +9,37 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import ru.chistov.notes.R;
+import ru.chistov.notes.publisher.Publisher;
+import ru.chistov.notes.repository.NoteData;
 
 public class MainActivity extends AppCompatActivity  {
+
+    private Publisher publisher;
+    Fragment backStackFragment;
+    NoteData noteData;
+    Navigation navigation;
+
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        publisher = new Publisher();
+        navigation = new Navigation(getSupportFragmentManager());
         if(savedInstanceState==null){
-            NameNoteFragment nameNotesFragment = NameNoteFragment.newInstance();
-            getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,nameNotesFragment).commit();
+            navigation.replaceFragment(NameNoteFragment.newInstance(),false);
 
         }
         if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE){
@@ -43,7 +60,7 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case (R.id.action_about):{
-                getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,new AboutFragment()).addToBackStack("").commit();
+                navigation.replaceFragment((new AboutFragment()),true);
 
                 return true;
             }
@@ -62,9 +79,11 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onResume() {
         super.onResume();
-        Fragment backStackFragment = (Fragment)getSupportFragmentManager().findFragmentById(R.id.name_notes);
+        backStackFragment = (Fragment)getSupportFragmentManager().findFragmentById(R.id.name_notes);
         if(backStackFragment!=null&&backStackFragment instanceof DescriptionFragment){
             getSupportFragmentManager().popBackStack();
         }
     }
+
+
 }

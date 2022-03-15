@@ -3,8 +3,10 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:cardCornerRadius="15dp"
+    android:background="@color/white"
+    android:clickable="true"
     app:cardElevation="3dp">
 
     <LinearLayout
@@ -30,18 +32,20 @@
             android:text="Description"
             android:textSize="@dimen/textDescription" />
 
-        <EditText
-            android:id="@+id/edCreationDate"
+        <DatePicker
+            android:id="@+id/date_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="CreationDate"
-            android:textSize="@dimen/textData" />
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/changeNote"
+            android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_btn_change" />
+            android:layout_gravity="end"
+            android:text="@string/txtBtnSave"/>
+
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

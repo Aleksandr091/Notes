@@ -8,27 +8,32 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import ru.chistov.notes.R;
+import ru.chistov.notes.publisher.Observer;
 import ru.chistov.notes.repository.LocalRepositoryImpl;
+import ru.chistov.notes.repository.NoteData;
 
 
-public class NameNoteFragment extends Fragment implements OnItemClickListener {
+public class NameNoteFragment extends Fragment implements OnItemClickListener{
 
     public static final String CURRENT_NOTE = "CURRENT_NOTE";
 
     private Note currentNote;
     NotesAdapter notesAdapter;
+    LocalRepositoryImpl data;
+    RecyclerView recyclerView;
+    Navigation navigation;
 
     public static NameNoteFragment newInstance() {
         NameNoteFragment fragment = new NameNoteFragment();
@@ -54,6 +59,7 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
         super.onViewCreated(view, savedInstanceState);
         initAdapter();
         initRecycler(view);
+        setHasOptionsMenu(true);
         if(savedInstanceState!=null){
             currentNote=savedInstanceState.getParcelable(CURRENT_NOTE);
         }else {
@@ -63,13 +69,64 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
             showLand();
         }
         initView(view);
-
-
     }
-    public void initView(View view){
-        view.findViewById(R.id.addNote).setOnClickListener(view1 -> Snackbar.make(view,"Добавлена заметка",Snackbar.LENGTH_LONG).show());
 
-        /*for (int i=0;i<notes.length;i++){
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.cards_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add:
+                data.addNoteData(new NoteData("Заголовок новой карточки"+data.size(),"Описание новой карточки"+data.size(),R.color.teal_700,false, Calendar.getInstance().getTime()));
+                notesAdapter.notifyItemInserted(data.size()-1);
+                recyclerView.smoothScrollToPosition(data.size()-1);
+                return true;
+            case R.id.action_clear:
+                data.clearNoteData();
+                notesAdapter.notifyDataSetChanged();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        requireActivity().getMenuInflater().inflate(R.menu.card_menu,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int menuPosition = notesAdapter.getMenuPosition();
+        switch (item.getItemId()){
+            case R.id.action_update:
+                Observer observer = new Observer() {
+                    @Override
+                    public void receiveMessage(NoteData noteData) {
+                        ((MainActivity) requireActivity()).getPublisher().unsubscribe(this);
+                        data.updateNoteData(menuPosition,noteData);
+                        notesAdapter.notifyItemChanged(menuPosition);
+                    }
+                };
+                ((MainActivity) requireActivity()).getPublisher().subscribe(observer);
+                ((MainActivity) requireActivity()).getNavigation().addFragment(EditorCardFragment.newInstance(data.getCardData(menuPosition)),true);
+                return true;
+            case R.id.action_delete:
+                data.deleteNoteData(menuPosition);
+                notesAdapter.notifyItemRemoved(menuPosition);
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    public void initView(View view){
+        /*view.findViewById(R.id.addNote).setOnClickListener(view1 -> Snackbar.make(view,"Добавлена заметка",Snackbar.LENGTH_LONG).show());
+
+        for (int i=0;i<notes.length;i++){
             String nameNotes = notes[i];
             TextView tv = new TextView(getContext());
             tv.setTextSize(30f);
@@ -129,15 +186,15 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
         }*/
     }
     public void initRecycler(View view){
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(notesAdapter);
         recyclerView.setHasFixedSize(true);
     }
     public void initAdapter(){
-        notesAdapter = new NotesAdapter();
-        LocalRepositoryImpl localRepository =new LocalRepositoryImpl(requireContext().getResources());
+        notesAdapter = new NotesAdapter(this);
+        data =new LocalRepositoryImpl(requireContext().getResources());
 
-        notesAdapter.setData(localRepository.init());
+        notesAdapter.setData(data.init());
         notesAdapter.setOnItemClickListener(this);
     }
     public String[] getData(){
@@ -152,13 +209,13 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
         DescriptionFragment descriptionFragment = DescriptionFragment.newInstance(currentNote);
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.name_notes,descriptionFragment).addToBackStack("").commit();
     }
-    public void setData (TextView view){
+    /*public void setData (TextView view){
         Long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String dateString = sdf.format(date);
         view.setText(dateString);
-    }
+    }*/
 
     @Override
     public void OnItemClick(int position) {
@@ -178,7 +235,8 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case (R.id.action_popup_open):{
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.name_notes,new ChangeCardViewItemFragment()).addToBackStack("").commit();
+                        navigation = new Navigation(requireActivity().getSupportFragmentManager());
+                        navigation.replaceFragment(EditorCardFragment.newInstance(data.getCardData(position)),true);
                         return true;
                     }
 
@@ -189,6 +247,7 @@ public class NameNoteFragment extends Fragment implements OnItemClickListener {
         popupMenu.show();
 
     }
+
 
 
 }
