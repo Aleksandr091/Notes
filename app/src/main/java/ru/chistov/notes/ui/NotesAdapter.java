@@ -29,15 +29,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     OnItemClickListener onItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-    this.onItemClickListener=onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
-    public NotesAdapter(NoteSource noteSource){
+
+    public NotesAdapter(NoteSource noteSource) {
         this.noteSource = noteSource;
     }
-    public NotesAdapter(){
+
+    public NotesAdapter() {
     }
-    public NotesAdapter(Fragment fragment){
+
+    public NotesAdapter(Fragment fragment) {
         this.fragment = fragment;
     }
 
@@ -46,7 +49,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return new MyViewHolder(layoutInflater.inflate(R.layout.fragment_name_notes_cardview_item,parent,false));
+        return new MyViewHolder(layoutInflater.inflate(R.layout.fragment_name_notes_cardview_item, parent, false));
     }
 
     @Override
@@ -65,7 +68,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private TextView textViewDescription;
         private TextView textViewCreationDate;
@@ -114,7 +117,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                 }
             });*/
         }
-        public void bindContentWithLayout(NoteData content){
+
+        public void bindContentWithLayout(NoteData content) {
             textViewTitle.setText(content.getTitle());
             textViewDescription.setText(content.getDescription());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

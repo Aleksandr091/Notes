@@ -10,22 +10,23 @@ public class Navigation {
 
     private final FragmentManager fragmentManager;
 
-    public Navigation(FragmentManager fragmentManager){
+    public Navigation(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
     }
 
-    public void replaceFragment(Fragment fragment,boolean useBackStack){
+    public void replaceFragment(Fragment fragment, boolean useBackStack) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.name_notes, fragment);
-        if(useBackStack){
+        if (useBackStack) {
             fragmentTransaction.addToBackStack("");
         }
         fragmentTransaction.commit();
     }
-    public void addFragment(Fragment fragment,boolean useBackStack){
+
+    public void addFragment(Fragment fragment, boolean useBackStack) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.name_notes, fragment);
-        if(useBackStack){
+        if (useBackStack) {
             fragmentTransaction.addToBackStack("");
         }
         fragmentTransaction.commit();

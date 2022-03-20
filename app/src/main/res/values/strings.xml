@@ -16,4 +16,7 @@
     <string name="action_update">изменить</string>
     <string name="action_delete">удалить</string>
     <string name="txtBtnSave">Сохранить</string>
+    <string name="txt_radio_btn_array">из array</string>
+    <string name="txt_radio_btn_sp">из SP</string>
+    <string name="txt_radio_btn_gf">из GF</string>
 </resources>

@@ -7,8 +7,18 @@ import android.os.Parcelable;
 import java.util.Date;
 
 public class NoteData implements Parcelable {
+    private String id;
     private String title;
     private String description;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private  int picture;
     private boolean completed;
     private Date date;

@@ -3,5 +3,4 @@
     android:id="@+id/textView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="@dimen/setTxtSize">
-</TextView>
+    android:textSize="@dimen/setTxtSize"></TextView>

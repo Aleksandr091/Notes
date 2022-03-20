@@ -28,9 +28,9 @@ public class EditorCardFragment extends Fragment {
     EditText edDescription;
 
     public static EditorCardFragment newInstance(NoteData noteData) {
-        EditorCardFragment fragment =new EditorCardFragment();
+        EditorCardFragment fragment = new EditorCardFragment();
         Bundle args = new Bundle();
-        args.putParcelable("noteData",noteData);
+        args.putParcelable("noteData", noteData);
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,53 +38,57 @@ public class EditorCardFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_editor_cardview,container,false);
+        return inflater.inflate(R.layout.fragment_editor_cardview, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(getArguments() != null){
+        if (getArguments() != null) {
             noteData = getArguments().getParcelable("noteData");
             initView(view);
             setContent();
-            initDatePicker(noteData.getDate(),view);
+            initDatePicker(noteData.getDate(), view);
             setOnDateChanged();
             save(view);
         }
     }
-    public void initView(View view){
+
+    public void initView(View view) {
         edTitle = view.findViewById(R.id.edTitle);
         edDescription = view.findViewById(R.id.edDescription);
-        datePicker = (DatePicker)view.findViewById(R.id.date_picker);
+        datePicker = (DatePicker) view.findViewById(R.id.date_picker);
     }
-    public void setContent(){
+
+    public void setContent() {
         edTitle.setText(noteData.getTitle());
         edDescription.setText(noteData.getDescription());
     }
-    public void setOnDateChanged(){
+
+    public void setOnDateChanged() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
                 @Override
                 public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                    calendar.set(Calendar.YEAR,i);
-                    calendar.set(Calendar.MARCH,i1);
-                    calendar.set(Calendar.DAY_OF_MONTH,i2);
+                    calendar.set(Calendar.YEAR, i);
+                    calendar.set(Calendar.MARCH, i1);
+                    calendar.set(Calendar.DAY_OF_MONTH, i2);
                 }
             });
-        }else {
-            calendar.set(Calendar.YEAR,datePicker.getYear());
-            calendar.set(Calendar.MARCH,datePicker.getMonth());
-            calendar.set(Calendar.DAY_OF_MONTH,datePicker.getDayOfMonth());
+        } else {
+            calendar.set(Calendar.YEAR, datePicker.getYear());
+            calendar.set(Calendar.MARCH, datePicker.getMonth());
+            calendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
         }
     }
-    public void setUpdate(View view){
-        noteData.setTitle(((EditText)view.findViewById(R.id.edTitle)).getText().toString());
-        noteData.setDescription(((EditText)view.findViewById(R.id.edDescription)).getText().toString());
+
+    public void setUpdate(View view) {
+        noteData.setTitle(((EditText) view.findViewById(R.id.edTitle)).getText().toString());
+        noteData.setDescription(((EditText) view.findViewById(R.id.edDescription)).getText().toString());
         noteData.setDate(calendar.getTime());
     }
 
-    public void save(View view){
+    public void save(View view) {
         view.findViewById(R.id.btnSave).setOnClickListener(view1 -> {
             setUpdate(view);
             ((MainActivity) requireActivity()).getPublisher().sendMessage(noteData);
@@ -92,16 +96,15 @@ public class EditorCardFragment extends Fragment {
         });
     }
 
-    private void initDatePicker(Date date,View view){
+    private void initDatePicker(Date date, View view) {
         calendar = Calendar.getInstance();
         calendar.setTime(date);
-        ((DatePicker)view.findViewById(R.id.date_picker)).init(calendar.get(Calendar.YEAR),
+        ((DatePicker) view.findViewById(R.id.date_picker)).init(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH),
                 null);
 
     }
-
 
 
 }
